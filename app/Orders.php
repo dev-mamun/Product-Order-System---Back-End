@@ -63,7 +63,7 @@ class Orders extends Helper
 
     public function list()
     {
-        $query = "SELECT o.order_id,p.name, p.sku, p.image, o.total, o.status, o.created_at FROM products as p INNER JOIN orders as o ON o.product_id=p.product_id ;";
+        $query = "SELECT o.order_id,p.name, p.sku, p.image, o.total, o.status, o.created_at FROM products as p INNER JOIN orders as o ON o.product_id=p.product_id ";
         if (!self::isAdmin()) {
             $query .= " WHERE customer_id=" . self::$_loggedIn->id;
         }

@@ -56,6 +56,7 @@ $route->add('/login', function () {
             $data = [
                 "token" => \Alisra\Helper::getToken($result),
                 "name" => $result->full_name,
+                "is_admin" => ($result->role_id == 1) ? true : false,
                 "redirect" => \Alisra\Helper::getRedirectUrl($result)
             ];
         }
@@ -68,15 +69,10 @@ $route->add('/logout', function () {
 
 });
 $route->add('/products', function () {
+    $product = new Products();
     $status = false;
-    $msg = "Could not fetch order list";
-    $data = [];
-    if(\Alisra\Helper::isLoggedIn()){
-        $product = new Products();
-        $status = false;
-        $msg = "Product list fetch successfully";
-        $data = $product->list();
-    }
+    $msg = "Product list fetch successfully";
+    $data = $product->list();
     \Alisra\Helper::response($status, $msg, $data);
 });
 $route->add('/product/{:id}', function () {
@@ -107,10 +103,10 @@ $route->add('/update/status/', function () {
     $status = false;
     $msg = "Could not update order";
     if (\Alisra\Helper::hasPermission()) {
-        if(isset($_POST['oid']) && !empty($_POST['oid'])){
+        if (isset($_POST['oid']) && !empty($_POST['oid'])) {
             $oid = $_POST['oid'];
             $order = new Orders();
-            if($order->update($oid, ["status='Shipped'"])){
+            if ($order->update($oid, ["status='Shipped'"])) {
                 $status = true;
                 $msg = "Order Status update successfully";
             }
@@ -122,9 +118,9 @@ $route->add('/create/order', function () {
     $status = false;
     $msg = "Could not create order";
     $data = [];
-    if(\Alisra\Helper::isLoggedIn()){
+    if (\Alisra\Helper::isLoggedIn()) {
         $order = new Orders();
-        if($order->create($_POST)){
+        if ($order->create($_POST)) {
             $status = true;
             $msg = "Order Add successfully";
             $data = [];
@@ -136,7 +132,7 @@ $route->add('/orders', function () {
     $status = false;
     $msg = "Could not fetch order list";
     $data = [];
-    if(\Alisra\Helper::isLoggedIn()){
+    if (\Alisra\Helper::isLoggedIn()) {
         $order = new Orders();
         $status = false;
         $msg = "Order list fetch successfully";

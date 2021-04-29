@@ -25,7 +25,8 @@ class Helper
             "msg" => $msg,
             "data" => $items,
         ];
-
+        header('Access-Control-Allow-Headers: *');
+        header('Access-Control-Allow-Origin: *');
         header("Content-type: application/json; charset=UTF-8");
         echo json_encode($data);
         exit();
@@ -58,7 +59,7 @@ class Helper
 
     public static function getBaseUrl()
     {
-        return "http://" . $_SERVER['HTTP_HOST'];
+        return $_SERVER['HTTP_REFERER'];
     }
 
     public static function getToken($user)
@@ -81,9 +82,9 @@ class Helper
     public static function getRedirectUrl($user)
     {
         if ($user->role_id == 1) {
-            return self::getBaseUrl() . "/admin/";
+            return self::getBaseUrl() . "admin/";
         }
-        return self::getBaseUrl() . "/";
+        return self::getBaseUrl();
     }
 
     public static function isLoggedIn()
