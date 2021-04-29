@@ -1,0 +1,30 @@
+{
+  "name": "alisra/product-order-system",
+  "type": "project",
+  "description": "This is simple product order system creating raw php and use SQLlite as a database.",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Md.Abdullah-al-mamun",
+      "email": "mamun1214@gmail.com"
+    }
+  ],
+  "require": {
+    "php": "7.2.*",
+    "firebase/php-jwt": "^5.2",
+    "guzzlehttp/guzzle": "^6.5"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^8.0"
+  },
+  "config": {
+    "optimize-autoloader": true,
+    "preferred-install": "dist",
+    "sort-packages": true
+  },
+  "autoload": {
+    "psr-4": {
+      "Alisra\\": "app/"
+    }
+  }
+}
