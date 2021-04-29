@@ -39,6 +39,14 @@ class Products
         }
     }
 
+    public function list()
+    {
+        $query = "SELECT * FROM products;";
+        $stmt = $this->_db->prepare($query);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_OBJ);
+    }
+
     public function __distruct()
     {
 

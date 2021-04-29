@@ -68,7 +68,16 @@ $route->add('/logout', function () {
 
 });
 $route->add('/products', function () {
-    echo "This is " . $_SERVER['REQUEST_URI'];
+    $status = false;
+    $msg = "Could not fetch order list";
+    $data = [];
+    if(\Alisra\Helper::isLoggedIn()){
+        $product = new Products();
+        $status = false;
+        $msg = "Product list fetch successfully";
+        $data = $product->list();
+    }
+    \Alisra\Helper::response($status, $msg, $data);
 });
 $route->add('/product/{:id}', function () {
     echo "This is " . $_SERVER['REQUEST_URI'];
